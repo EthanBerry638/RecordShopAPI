@@ -56,5 +56,10 @@ namespace RecordShop.Api.Services
 
             return new PostArtistResponse(response.Id, response.Name, response.Bio!, response.Age);
         }
+
+        public async Task<PutArtistResponse?> PutArtistAsync(PutArtistRequest artist, int id)
+        {
+            return null;
+        }
     }
 }
