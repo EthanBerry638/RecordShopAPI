@@ -47,5 +47,11 @@ namespace RecordShop.Api.Controllers
                 artist
             );
         }
+
+        [HttpPut]
+        public async Task<IActionResult> PutArtistAsync([FromBody] PutArtistRequest request, int id)
+        {
+            return BadRequest();
+        }
     }
 }
