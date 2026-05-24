@@ -167,5 +167,27 @@ namespace RecordShop.Tests.Integration
             updatedArtist.Should().NotBeNull();
             updatedArtist.Should().BeEquivalentTo(requestDto);
         }
+
+        [Test]
+        public async Task DeleteArtistByIdAsync_ShouldReturnNotFound_WhenArtistDoesNotExist()
+        {
+            var client = _factory.CreateClient();
+            int id = 90000;
+
+            var response = await client.DeleteAsync($"api/Artist/{id}");
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
+        }
+
+        [Test]
+        public async Task DeleteArtistByIdAsync_ShouldReturnNoContent_WhenArtistDoesExist()
+        {
+            var client = _factory.CreateClient();
+            int id = 3;
+
+            var response = await client.DeleteAsync($"api/Artist/{id}");
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.NoContent);
+        }
     }
 }
