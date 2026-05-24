@@ -122,5 +122,20 @@ namespace RecordShop.Tests.Unit.ServiceTests
 
             _artistRepositoryMock.Verify(a => a.PostArtistAsync(It.IsAny<Artist>()), Times.Once());
         }
+
+        [Test]
+        public async Task PutArtistAsync_ShouldNotThrowExcepetionAndReturnNull_WhenGetRequestCannotFindArtistUpdate()
+        {
+            var requestDto = new PutArtistRequest("Test", "Test", 60);
+            int id = 1;
+
+            _artistRepositoryMock.Setup(a => a.GetArtistByIdAsync(id)).ReturnsAsync((Artist)null!);
+
+            var result = await _artistService.PutArtistAsync(requestDto, id);
+
+            result.Should().BeNull();
+
+            _artistRepositoryMock.Verify(a => a.GetArtistByIdAsync(id), Times.Once());
+        }
     }
 }
