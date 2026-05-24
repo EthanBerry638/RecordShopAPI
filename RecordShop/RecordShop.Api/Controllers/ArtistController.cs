@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RecordShop.Api.Models.DataModels;
 using RecordShop.Api.Models.DTOs;
 using RecordShop.Api.Services;
 
@@ -58,7 +59,11 @@ namespace RecordShop.Api.Controllers
                 return NotFound();
             }
 
-            return Ok();
+            return CreatedAtAction(
+                nameof(GetArtistByIdAsync),
+                new { Id = replacedArtist.Id },
+                replacedArtist
+            );
         }
     }
 }
