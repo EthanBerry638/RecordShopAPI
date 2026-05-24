@@ -84,5 +84,10 @@ namespace RecordShop.Api.Services
                 return null;
             }
         }
+
+        public async Task<bool> DeleteArtistByIdAsync(int id)
+        {
+            return false;
+        }
     }
 }

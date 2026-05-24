@@ -9,5 +9,6 @@ namespace RecordShop.Api.Services
         Task<GetArtistResponse?> GetArtistByIdAsync(int id);
         Task<PostArtistResponse> PostArtistAsync(PostArtistRequest request);
         Task<PutArtistResponse?> PutArtistAsync(PutArtistRequest artist, int id);
+        Task<bool> DeleteArtistByIdAsync(int id);
     }
 }
