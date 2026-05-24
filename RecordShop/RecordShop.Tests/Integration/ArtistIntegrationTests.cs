@@ -130,5 +130,19 @@ namespace RecordShop.Tests.Integration
             createdArtist.Bio.Should().Be(request.Bio);
             createdArtist.Age.Should().Be(request.Age);
         }
+
+        [Test]
+        public async Task PutArtistAsyncEndpoint_ReturnsNotFound_WhenArtistNotFound()
+        {
+            var client = _factory.CreateClient();
+
+            int id = 1000000;
+
+            var requestDto = new PutArtistRequest("test", "test", 3);
+
+            var response = await client.PutAsJsonAsync($"api/Artist/{id}", requestDto);
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
+        }
     }
 }
