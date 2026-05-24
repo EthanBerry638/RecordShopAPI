@@ -65,5 +65,11 @@ namespace RecordShop.Api.Controllers
                 replacedArtist
             );
         }
+
+        [HttpDelete("{id:min(1)}")]
+        public async Task<IActionResult> DeleteArtistByIdAsync(int id)
+        {
+            return BadRequest();
+        }
     }
 }
