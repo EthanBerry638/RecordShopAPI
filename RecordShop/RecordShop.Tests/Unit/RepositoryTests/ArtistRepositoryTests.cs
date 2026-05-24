@@ -142,5 +142,18 @@ namespace RecordShop.Tests.Unit.RepositoryTests
             inDb.Should().NotBeNull();
             inDb.Should().BeEquivalentTo(result);
         }
+
+        [Test]
+        public async Task DeleteArtistByIdAsync_ShouldReturnTrue_WhenArtistExists()
+        { 
+            int existingId = 1;
+
+            var result = await _artistRepository.DeleteArtistByIdAsync(existingId);
+
+            result.Should().BeTrue();
+
+            var deletedArtist = await _context.Artists.FindAsync(existingId);
+            deletedArtist.Should().BeNull();
+        }
     }
 }
