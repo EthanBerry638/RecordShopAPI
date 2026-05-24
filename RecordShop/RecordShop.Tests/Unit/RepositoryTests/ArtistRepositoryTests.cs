@@ -130,7 +130,15 @@ namespace RecordShop.Tests.Unit.RepositoryTests
             var result = await _artistRepository.PutArtistAsync(seededArtist);
 
             result.Should().NotBeNull();
+            result.Id.Should().Be(seededArtist.Id);
             result.Name.Should().Be(seededArtist.Name);
+            result.Bio.Should().Be(seededArtist.Bio);
+            result.Age.Should().Be(seededArtist.Age);
+
+            var inDb = await _artistRepository.GetArtistByIdAsync(result.Id);
+
+            inDb.Should().NotBeNull();
+            inDb.Should().BeEquivalentTo(result);
         }
     }
 }
