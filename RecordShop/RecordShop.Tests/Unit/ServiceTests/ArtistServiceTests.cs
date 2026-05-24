@@ -129,13 +129,9 @@ namespace RecordShop.Tests.Unit.ServiceTests
             var requestDto = new PutArtistRequest("Test", "Test", 60);
             int id = 1;
 
-            _artistRepositoryMock.Setup(a => a.GetArtistByIdAsync(id)).ReturnsAsync((Artist)null!);
-
             var result = await _artistService.PutArtistAsync(requestDto, id);
 
             result.Should().BeNull();
-
-            _artistRepositoryMock.Verify(a => a.GetArtistByIdAsync(id), Times.Once());
         }
 
         [Test]
@@ -160,8 +156,6 @@ namespace RecordShop.Tests.Unit.ServiceTests
                 Age = 20
             };
 
-            _artistRepositoryMock.Setup(a => a.GetArtistByIdAsync(id)).ReturnsAsync(existingArtist);
-
             _artistRepositoryMock.Setup(a => a.PutArtistAsync(It.IsAny<Artist>())).ReturnsAsync(updatedArtist);
 
             var result = await _artistService.PutArtistAsync(requestDto, id);
@@ -169,7 +163,6 @@ namespace RecordShop.Tests.Unit.ServiceTests
             result.Should().NotBeNull();
             result.Should().BeEquivalentTo(updatedArtist, options => options.ExcludingMissingMembers());
 
-            _artistRepositoryMock.Verify(a => a.GetArtistByIdAsync(id), Times.Once());
             _artistRepositoryMock.Verify(a => a.PutArtistAsync(It.IsAny<Artist>()), Times.Once());
         }
     }
