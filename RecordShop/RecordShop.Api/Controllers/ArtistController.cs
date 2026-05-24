@@ -71,6 +71,11 @@ namespace RecordShop.Api.Controllers
         {
             var deleteResult = await _artistService.DeleteArtistByIdAsync(id);
 
+            if (deleteResult)
+            {
+                return NoContent();
+            }
+
             return NotFound();
         }
     }
