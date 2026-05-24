@@ -59,6 +59,8 @@ namespace RecordShop.Api.Services
 
         public async Task<PutArtistResponse?> PutArtistAsync(PutArtistRequest artist, int id)
         {
+            var existingArtist = await GetArtistByIdAsync(id);
+
             return null;
         }
     }
