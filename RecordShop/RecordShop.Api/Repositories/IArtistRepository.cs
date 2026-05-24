@@ -8,5 +8,6 @@ namespace RecordShop.Api.Repositories
         Task<Artist?> GetArtistByIdAsync(int id);
         Task<Artist> PostArtistAsync(Artist artist);
         Task<Artist> PutArtistAsync(Artist artist);
+        Task<bool> DeleteArtistByIdAsync(int id);
     }
 }

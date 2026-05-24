@@ -36,5 +36,10 @@ namespace RecordShop.Api.Repositories
             await _db.SaveChangesAsync();
             return artist;
         }
+
+        public async Task<bool> DeleteArtistByIdAsync(int id)
+        {
+            return true;
+        }
     }
 }
