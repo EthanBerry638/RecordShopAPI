@@ -60,7 +60,7 @@ namespace RecordShop.Tests.Unit.RepositoryTests
             var expectedArtists = JsonSerializer.Deserialize<List<Artist>>(jsonString);
 
             var result = await _artistRepository.GetAllArtistsAsync();
-            aefsjnk
+
             result.Should().BeEquivalentTo(expectedArtists, options => options.ExcludingMembersNamed("Id"));
         }
 
