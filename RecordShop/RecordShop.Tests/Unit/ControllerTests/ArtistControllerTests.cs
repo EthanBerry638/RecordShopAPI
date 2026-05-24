@@ -129,5 +129,22 @@ namespace RecordShop.Tests.Unit.ControllerTests
 
             _artistServiceMock.Verify(a => a.PutArtistAsync(testRequest, id), Times.Once());
         }
+
+        [Test]
+        public async Task PutArtistAsync_ShouldReturnCreated_WhenServiceReturnsDTOWithUpdates()
+        {
+            int id = 1;
+            var testRequest = new PutArtistRequest("Test", "Test", 4);
+            var testResponse = new PutArtistResponse(id, "Test New", "Test New", 4);
+
+            _artistServiceMock.Setup(a => a.PutArtistAsync(testRequest, id)).ReturnsAsync(testResponse);
+
+            var result = await _artistController.PutArtistAsync(testRequest, id);
+
+            var createdResult = result.Should().BeOfType<CreatedAtActionResult>().Subject;
+            createdResult.RouteValues!["id"].Should().Be(1);
+
+            _artistServiceMock.Verify(a => a.PutArtistAsync(testRequest, id), Times.Once());
+        }
     }
 }
