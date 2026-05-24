@@ -76,7 +76,7 @@ namespace RecordShop.Api.Services
 
             var replacedArtist = await _artistRepository.PutArtistAsync(artistToReplace);
 
-            return new PutArtistResponse(replacedArtist.Id, replacedArtist.Name, replacedArtist.Bio, replacedArtist.Age);
+            return new PutArtistResponse(replacedArtist.Id, replacedArtist.Name, replacedArtist.Bio!, replacedArtist.Age);
         }
     }
 }
