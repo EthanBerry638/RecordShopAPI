@@ -69,7 +69,9 @@ namespace RecordShop.Api.Controllers
         [HttpDelete("{id:min(1)}")]
         public async Task<IActionResult> DeleteArtistByIdAsync(int id)
         {
-            return BadRequest();
+            var deleteResult = await _artistService.DeleteArtistByIdAsync(id);
+
+            return NotFound();
         }
     }
 }
