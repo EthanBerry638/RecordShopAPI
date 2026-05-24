@@ -51,7 +51,9 @@ namespace RecordShop.Api.Controllers
         [HttpPut]
         public async Task<IActionResult> PutArtistAsync([FromBody] PutArtistRequest request, int id)
         {
-            return BadRequest();
+            var replacedArtist = await _artistService.PutArtistAsync(request, id);
+
+            return NotFound();
         }
     }
 }
