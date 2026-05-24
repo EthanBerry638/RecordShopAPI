@@ -27,4 +27,10 @@
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
+	<ItemGroup>
+		<None Include="..\RecordShop.Api\Resources\*.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
 </Project>
