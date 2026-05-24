@@ -53,7 +53,12 @@ namespace RecordShop.Api.Controllers
         {
             var replacedArtist = await _artistService.PutArtistAsync(request, id);
 
-            return NotFound();
+            if (replacedArtist == null)
+            {
+                return NotFound();
+            }
+
+            return Ok();
         }
     }
 }
