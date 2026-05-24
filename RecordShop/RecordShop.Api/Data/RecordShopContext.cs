@@ -6,8 +6,8 @@ namespace RecordShop.Api.Data
 {
     public class RecordShopContext : DbContext
     {
-        private readonly string _albumFilePath = "Resources\\albums.json";
-        private readonly string _artistFilePath = "Resources\\artists.json";
+        private readonly string _albumFilePath = Path.Combine("Resources", "albums.json");
+        private readonly string _artistFilePath = Path.Combine("Resources", "artists.json");
         public DbSet<Album> Albums { get; set; }
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Genre> Genres { get; set; }
