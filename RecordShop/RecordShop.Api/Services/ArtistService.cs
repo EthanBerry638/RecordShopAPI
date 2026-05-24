@@ -61,6 +61,11 @@ namespace RecordShop.Api.Services
         {
             var existingArtist = await GetArtistByIdAsync(id);
 
+            if (existingArtist == null)
+            {
+                return null;
+            }
+
             var artistToReplace = new Artist
             {
                 Id = id,
