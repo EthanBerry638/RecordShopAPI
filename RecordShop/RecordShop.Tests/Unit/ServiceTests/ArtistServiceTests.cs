@@ -137,5 +137,40 @@ namespace RecordShop.Tests.Unit.ServiceTests
 
             _artistRepositoryMock.Verify(a => a.GetArtistByIdAsync(id), Times.Once());
         }
+
+        [Test]
+        public async Task PutArtistAsync_ShouldUpdateAndReturnResponse_WhenArtistExistsAndGetRequestCanFindArtist()
+        {
+            var requestDto = new PutArtistRequest("Updated Name", "Updated Bio", 20);
+            int id = 1;
+
+            var existingArtist = new Artist
+            {
+                Id = id,
+                Name = "Original Name",
+                Bio = "Original Bio",
+                Age = 30
+            };
+
+            var updatedArtist = new Artist
+            {
+                Id = id,
+                Name = "Updated Name",
+                Bio = "Updated Bio",
+                Age = 20
+            };
+
+            _artistRepositoryMock.Setup(a => a.GetArtistByIdAsync(id)).ReturnsAsync(existingArtist);
+
+            _artistRepositoryMock.Setup(a => a.PutArtistAsync(It.IsAny<Artist>())).ReturnsAsync(updatedArtist);
+
+            var result = await _artistService.PutArtistAsync(requestDto, id);
+
+            result.Should().NotBeNull();
+            result.Should().BeEquivalentTo(updatedArtist, options => options.ExcludingMissingMembers());
+
+            _artistRepositoryMock.Verify(a => a.GetArtistByIdAsync(id), Times.Once());
+            _artistRepositoryMock.Verify(a => a.PutArtistAsync(It.IsAny<Artist>()), Times.Once());
+        }
     }
 }
