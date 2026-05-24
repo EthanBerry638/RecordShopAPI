@@ -144,5 +144,30 @@ namespace RecordShop.Tests.Integration
 
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
         }
+
+        [Test]
+        public async Task PutArtistAsyncEndpoint_ReturnsCreatedAtAction_WhenArtistDTOIsValid()
+        {
+            var client = _factory.CreateClient();
+            int id = 2;
+
+            var existingArtist = await client.GetAsync($"api/Artist/{id}");
+
+            var requestDto = new PutArtistRequest("test", "test", 3);
+            var resposneDto = new PutArtistResponse(id, "test", "test", 3);
+
+            var response = await client.PutAsJsonAsync($"api/Artist/{id}", requestDto);
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.Created);
+
+            var content = await response.Content.ReadAsStringAsync();
+            var updatedArtist = JsonSerializer.Deserialize<PutArtistResponse>(content, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+            updatedArtist.Should().NotBeNull();
+            updatedArtist.Should().BeEquivalentTo(requestDto);
+        }
     }
 }
