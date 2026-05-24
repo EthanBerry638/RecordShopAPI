@@ -12,8 +12,8 @@ using RecordShop.Api.Data;
 namespace RecordShop.Api.Migrations
 {
     [DbContext(typeof(RecordShopContext))]
-    [Migration("20260509150538_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260517142845_InitialSqlServerCreate")]
+    partial class InitialSqlServerCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -130,15 +130,20 @@ namespace RecordShop.Api.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Bio")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Artists");
+                    b.ToTable("Artists", t =>
+                        {
+                            t.HasCheckConstraint("CK_Artist_Age_Range", "[Age] >=1 AND [Age] <= 120");
+                        });
                 });
 
             modelBuilder.Entity("RecordShop.Api.Models.DataModels.Genre", b =>

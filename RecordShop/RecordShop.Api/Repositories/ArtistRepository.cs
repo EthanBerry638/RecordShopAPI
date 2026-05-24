@@ -1,0 +1,55 @@
+﻿using Microsoft.EntityFrameworkCore;
+using RecordShop.Api.Data;
+using RecordShop.Api.Models.DataModels;
+
+namespace RecordShop.Api.Repositories
+{
+    public class ArtistRepository : IArtistRepository
+    {
+        private readonly RecordShopContext _db;
+
+        public ArtistRepository(RecordShopContext db)
+        {
+            _db = db;
+        }
+
+        public async Task<List<Artist>> GetAllArtistsAsync()
+        {
+            return await _db.Artists.ToListAsync();
+        }
+
+        public async Task<Artist?> GetArtistByIdAsync(int id)
+        {
+            return await _db.Artists.FindAsync(id);
+        }
+
+        public async Task<Artist> PostArtistAsync(Artist artist)
+        {
+            await _db.Artists.AddAsync(artist);
+            await _db.SaveChangesAsync(); 
+            return artist;
+        }
+
+        public async Task<Artist> PutArtistAsync(Artist artist)
+        {
+            _db.Artists.Update(artist);
+            await _db.SaveChangesAsync();
+            return artist;
+        }
+
+        public async Task<bool> DeleteArtistByIdAsync(int id)
+        {
+            var artist = await _db.Artists.FindAsync(id);
+
+            if (artist == null)
+            {
+                return false;
+            }
+
+            _db.Artists.Remove(artist!);
+            await _db.SaveChangesAsync();
+
+            return true;
+        }
+    }
+}

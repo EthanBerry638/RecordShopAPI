@@ -1,0 +1,32 @@
+[
+  {
+    "Name": "Michael Jackson",
+    "Bio": "An American singer, songwriter, and dancer. Dubbed the 'King of Pop', he is regarded as one of the most significant cultural figures of the 20th century.",
+    "Age": 50
+  },
+  {
+    "Name": "AC/DC",
+    "Bio": "An Australian rock band formed in Sydney in 1973 by brothers Malcolm and Angus Young. Their music is commonly altered between hard rock and heavy metal.",
+    "Age": 53
+  },
+  {
+    "Name": "Pink Floyd",
+    "Bio": "An English rock band formed in London in 1965. They achieved international acclaim with their progressive and psychedelic music.",
+    "Age": 61
+  },
+  {
+    "Name": "Nirvana",
+    "Bio": "An American rock band formed in Aberdeen, Washington, in 1987. Founded by lead singer and guitarist Kurt Cobain and bassist Krist Novoselic.",
+    "Age": 39
+  },
+  {
+    "Name": "Fleetwood Mac",
+    "Bio": "A British-American rock band, formed in London in 1967. They have sold more than 120 million records worldwide, making them one of the world's best-selling bands.",
+    "Age": 59
+  },
+  {
+    "Name": "The Beatles",
+    "Bio": "An English rock band formed in Liverpool in 1960. With a line-up comprising John Lennon, Paul McCartney, George Harrison and Ringo Starr, they are regarded as the most influential band in history.",
+    "Age": 66
+  }
+]

@@ -142,7 +142,7 @@ namespace RecordShop.Tests.Integration
         }
 
         [Test]
-        public async Task GetAlbumByIdAsyncEndpoint_ReturnsCorrectMessageFromMiddlewareWhenUserMakesBadRequest()
+        public async Task GetAlbumByIdAsyncEndpoint_ReturnsNotFound_WhenIdIsLessThanOne()
         {
             var client = _factory.CreateClient();
 

@@ -8,10 +8,10 @@ using RecordShop.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
 if (builder.Environment.IsDevelopment())
 {
+    var connectionString = builder.Configuration.GetConnectionString("SqliteConnection");
+
     var keepAliveConnection = new SqliteConnection(connectionString);
     keepAliveConnection.Open();
 
@@ -20,6 +20,9 @@ if (builder.Environment.IsDevelopment())
 }
 else
 {
+    builder.Configuration.AddUserSecrets<Program>();
+    var connectionString = builder.Configuration.GetConnectionString("SqlServerConnection");
+    
     builder.Services.AddDbContext<RecordShopContext>(options =>
              options.UseSqlServer(connectionString));
 }
@@ -29,6 +32,8 @@ builder.Services.AddHealthChecks()
 
 builder.Services.AddScoped<IAlbumRepository, AlbumRepository>();
 builder.Services.AddScoped<IAlbumService, AlbumService>();
+builder.Services.AddScoped<IArtistService, ArtistService>();
+builder.Services.AddScoped<IArtistRepository, ArtistRepository>();
 
 builder.Services.AddTransient<ExceptionMiddleware>();
 builder.Services.AddTransient<LoggingMiddleware>();
