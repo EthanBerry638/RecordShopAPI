@@ -144,6 +144,16 @@ namespace RecordShop.Tests.Unit.RepositoryTests
         }
 
         [Test]
+        public async Task DeleteArtistByIdAsync_ShouldReturnFalse_WhenArtistDoesNotExist()
+        {
+            int existingId = 10000;
+
+            var result = await _artistRepository.DeleteArtistByIdAsync(existingId);
+
+            result.Should().BeFalse();
+        }
+
+        [Test]
         public async Task DeleteArtistByIdAsync_ShouldReturnTrue_WhenArtistExists()
         { 
             int existingId = 1;
