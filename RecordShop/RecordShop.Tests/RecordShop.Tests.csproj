@@ -29,7 +29,7 @@
 
 	<ItemGroup>
 		<None Include="..\RecordShop.Api\Resources\*.json">
-			<Link>%(Filename)%(Extension)</Link>
+			<Link>Resources\%(Filename)%(Extension)</Link>
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
