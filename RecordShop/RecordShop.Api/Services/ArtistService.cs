@@ -61,7 +61,17 @@ namespace RecordShop.Api.Services
         {
             var existingArtist = await GetArtistByIdAsync(id);
 
-            return null;
+            var artistToReplace = new Artist
+            {
+                Id = id,
+                Name = artist.Name,
+                Bio = artist.Bio,
+                Age = artist.Age
+            };
+
+            var replacedArtist = await _artistRepository.PutArtistAsync(artistToReplace);
+
+            return new PutArtistResponse(replacedArtist.Id, replacedArtist.Name, replacedArtist.Bio, replacedArtist.Age);
         }
     }
 }
