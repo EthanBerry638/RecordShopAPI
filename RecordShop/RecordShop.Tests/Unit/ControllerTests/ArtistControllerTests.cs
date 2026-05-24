@@ -114,5 +114,20 @@ namespace RecordShop.Tests.Unit.ControllerTests
             var createdResult = result.Should().BeOfType<CreatedAtActionResult>().Subject;
             createdResult.RouteValues!["id"].Should().Be(1);
         }
+
+        [Test]
+        public async Task PutArtistAsync_ShouldReturnNotFound_WhenServiceReturnsNull()
+        {
+            int id = 1;
+            var testRequest = new PutArtistRequest("Test", "Test", 20);
+
+            _artistServiceMock.Setup(a => a.PutArtistAsync(testRequest, id)).ReturnsAsync((PutArtistResponse)null!);
+
+            var result = await _artistController.PutArtistAsync(testRequest, id);
+
+            var notFoundResult = result.Should().BeOfType<NotFoundResult>().Subject;
+
+            _artistServiceMock.Verify(a => a.PutArtistAsync(testRequest, id), Times.Once());
+        }
     }
 }
