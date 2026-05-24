@@ -1,4 +1,5 @@
-﻿using RecordShop.Api.Models.DataModels;
+﻿using Microsoft.EntityFrameworkCore;
+using RecordShop.Api.Models.DataModels;
 using RecordShop.Api.Models.DTOs;
 using RecordShop.Api.Repositories;
 
@@ -59,13 +60,6 @@ namespace RecordShop.Api.Services
 
         public async Task<PutArtistResponse?> PutArtistAsync(PutArtistRequest artist, int id)
         {
-            var existingArtist = await GetArtistByIdAsync(id);
-
-            if (existingArtist == null)
-            {
-                return null;
-            }
-
             var artistToReplace = new Artist
             {
                 Id = id,
@@ -74,9 +68,21 @@ namespace RecordShop.Api.Services
                 Age = artist.Age
             };
 
-            var replacedArtist = await _artistRepository.PutArtistAsync(artistToReplace);
+            try
+            {
+                var replacedArtist = await _artistRepository.PutArtistAsync(artistToReplace);
 
-            return new PutArtistResponse(replacedArtist.Id, replacedArtist.Name, replacedArtist.Bio!, replacedArtist.Age);
+                return new PutArtistResponse(
+                    replacedArtist.Id,
+                    replacedArtist.Name, 
+                    replacedArtist.Bio!,
+                    replacedArtist.Age
+                );
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return null;
+            }
         }
     }
 }
