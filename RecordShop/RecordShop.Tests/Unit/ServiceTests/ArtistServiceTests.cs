@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using RecordShop.Api.Models.DataModels;
 using RecordShop.Api.Models.DTOs;
@@ -129,9 +130,13 @@ namespace RecordShop.Tests.Unit.ServiceTests
             var requestDto = new PutArtistRequest("Test", "Test", 60);
             int id = 1;
 
+            _artistRepositoryMock.Setup(a => a.PutArtistAsync(It.IsAny<Artist>())).ThrowsAsync(new DbUpdateConcurrencyException());
+
             var result = await _artistService.PutArtistAsync(requestDto, id);
 
             result.Should().BeNull();
+
+            _artistRepositoryMock.Verify(a => a.PutArtistAsync(It.IsAny<Artist>()), Times.Once());
         }
 
         [Test]
