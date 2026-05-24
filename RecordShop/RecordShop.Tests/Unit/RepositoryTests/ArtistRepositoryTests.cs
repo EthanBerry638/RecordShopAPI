@@ -109,5 +109,28 @@ namespace RecordShop.Tests.Unit.RepositoryTests
             result.Should().BeEquivalentTo(expectedArtist);
             result.Id.Should().BeGreaterThan(0);
         }
+
+        [Test]
+        public async Task PutArtistAsync_ShouldReturnArtist_WhenArtistIsValid()
+        {
+            var originalArtist = new Artist
+            {
+                Name = "Test",
+                Bio = "Test",
+                Age = 28
+            };
+
+            var seededArtist = await _artistRepository.PostArtistAsync(originalArtist);
+            var id = seededArtist.Id;
+
+            seededArtist.Name = "Updated Test";
+            seededArtist.Bio = "Updated Test";
+            seededArtist.Age = 30;
+
+            var result = await _artistRepository.PutArtistAsync(seededArtist);
+
+            result.Should().NotBeNull();
+            result.Name.Should().Be(seededArtist.Name);
+        }
     }
 }
