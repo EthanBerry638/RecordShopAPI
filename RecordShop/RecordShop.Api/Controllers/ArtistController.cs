@@ -49,7 +49,7 @@ namespace RecordShop.Api.Controllers
             );
         }
 
-        [HttpPut]
+        [HttpPut("{id:min(1)}")]
         public async Task<IActionResult> PutArtistAsync([FromBody] PutArtistRequest request, int id)
         {
             var replacedArtist = await _artistService.PutArtistAsync(request, id);
