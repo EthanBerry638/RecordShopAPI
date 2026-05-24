@@ -160,5 +160,19 @@ namespace RecordShop.Tests.Unit.ControllerTests
 
             _artistServiceMock.Verify(a => a.DeleteArtistByIdAsync(id), Times.Once());
         }
+
+        [Test]
+        public async Task DeleteArtistAsync_ShouldReturnNoContent_WhenServiceReturnsTrue()
+        {
+            int id = 5;
+
+            _artistServiceMock.Setup(a => a.DeleteArtistByIdAsync(id)).ReturnsAsync(true);
+
+            var result = await _artistController.DeleteArtistByIdAsync(id);
+
+            var notFoundResult = result.Should().BeOfType<NoContentResult>().Subject;
+
+            _artistServiceMock.Verify(a => a.DeleteArtistByIdAsync(id), Times.Once());
+        }
     }
 }
