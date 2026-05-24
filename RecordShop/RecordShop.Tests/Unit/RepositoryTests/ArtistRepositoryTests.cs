@@ -56,7 +56,7 @@ namespace RecordShop.Tests.Unit.RepositoryTests
         [Test]
         public async Task GetAllArtistsAsync_ShouldReturnListOfArtists_WhenDatabaseIsSeeded()
         {
-            var jsonString = File.ReadAllText("Resources\\artists.json");
+            var jsonString = File.ReadAllText(Path.Combine("Resources", "artists.json"));
             var expectedArtists = JsonSerializer.Deserialize<List<Artist>>(jsonString);
 
             var result = await _artistRepository.GetAllArtistsAsync();
