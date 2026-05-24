@@ -135,6 +135,8 @@ namespace RecordShop.Tests.Unit.RepositoryTests
             result.Bio.Should().Be(seededArtist.Bio);
             result.Age.Should().Be(seededArtist.Age);
 
+            _context.ChangeTracker.Clear();
+
             var inDb = await _artistRepository.GetArtistByIdAsync(result.Id);
 
             inDb.Should().NotBeNull();
