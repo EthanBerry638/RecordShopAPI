@@ -151,8 +151,6 @@ namespace RecordShop.Tests.Integration
             var client = _factory.CreateClient();
             int id = 2;
 
-            var existingArtist = await client.GetAsync($"api/Artist/{id}");
-
             var requestDto = new PutArtistRequest("test", "test", 3);
             var resposneDto = new PutArtistResponse(id, "test", "test", 3);
 
