@@ -4,7 +4,7 @@ RESTful API for managing a record shop inventory
 
 ## Features 🎶
 
-CRUD Endpoints for Albums
+CRUD Endpoints for Albums and Artists
 
 Error Handling: Global exception handling middleware
 
