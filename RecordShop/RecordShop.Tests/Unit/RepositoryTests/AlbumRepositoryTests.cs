@@ -43,7 +43,7 @@ namespace RecordShop.Tests.Unit.RepositoryTests
         [Test]
         public async Task GetAllAlbumsAsync_ShouldReturnListOfAlbums_WhenDatabaseIsSeeded()
         {
-            var jsonString = File.ReadAllText(Path.Combine("Resources", "albums.json"));
+            var jsonString = File.ReadAllText("albums.json"));
             var expectedAlbums = JsonSerializer.Deserialize<List<Album>>(jsonString);
 
             var result = await _albumRepository.GetAllAlbumsAsync();
