@@ -41,6 +41,11 @@ namespace RecordShop.Api.Repositories
         {
             var artist = await _db.Artists.FindAsync(id);
 
+            if (artist == null)
+            {
+                return false;
+            }
+
             _db.Artists.Remove(artist!);
             await _db.SaveChangesAsync();
 
