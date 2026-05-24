@@ -184,5 +184,19 @@ namespace RecordShop.Tests.Unit.ServiceTests
 
             _artistRepositoryMock.Verify(a => a.DeleteArtistByIdAsync(id), Times.Once());
         }
+
+        [Test]
+        public async Task DeleteArtistByIdAsync_ShouldReturnTrue_WhenArtistWasDeletedByRepo()
+        {
+            int id = 1;
+
+            _artistRepositoryMock.Setup(a => a.DeleteArtistByIdAsync(id)).ReturnsAsync(true);
+
+            var result = await _artistService.DeleteArtistByIdAsync(id);
+
+            result.Should().BeTrue();
+
+            _artistRepositoryMock.Verify(a => a.DeleteArtistByIdAsync(id), Times.Once());
+        }
     }
 }
