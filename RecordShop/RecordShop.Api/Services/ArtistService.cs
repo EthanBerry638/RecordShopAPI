@@ -87,6 +87,8 @@ namespace RecordShop.Api.Services
 
         public async Task<bool> DeleteArtistByIdAsync(int id)
         {
+            await _artistRepository.DeleteArtistByIdAsync(id);
+
             return false;
         }
     }
