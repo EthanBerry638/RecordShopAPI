@@ -32,7 +32,7 @@ namespace RecordShop.Api.Repositories
 
         public async Task<Artist> PutArtistAsync(Artist artist)
         {
-            return null;
+            return artist;
         }
     }
 }
