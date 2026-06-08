@@ -188,7 +188,7 @@ namespace RecordShop.Tests.Integration
         }
 
         [Test]
-        public async Task PutAlbumAsyncEndpoint_ReturnsCreatedAtAction()
+        public async Task PutAlbumAsyncEndpoint_ReturnsOk()
         {
             var client = _factory.CreateClient();
             int id = 3;
@@ -197,10 +197,7 @@ namespace RecordShop.Tests.Integration
 
             var response = await client.PutAsJsonAsync($"api/Album/{id}", requestDTO);
 
-            response.StatusCode.Should().Be(System.Net.HttpStatusCode.Created);
-
-            response.Headers.Location.Should().NotBeNull();
-            response.Headers.Location.PathAndQuery.Should().Contain($"api/Album/{expectedResponseDTO.Id}");
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
 
             var content = await response.Content.ReadAsStringAsync();
 

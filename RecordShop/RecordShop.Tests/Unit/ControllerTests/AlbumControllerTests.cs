@@ -153,7 +153,7 @@ namespace RecordShop.Tests.Unit.ControllerTests
         }
 
         [Test]
-        public async Task PutAlbumAsync_ShouldReturnCreated_WhenServiceReturnsDTOWithUpdates()
+        public async Task PutAlbumAsync_ShouldReturnOk_WhenServiceReturnsDTOWithUpdates()
         {
             int id = 1;
             var testRequest = new PutAlbumRequest("Test", "Test", null, 4M);
@@ -163,8 +163,11 @@ namespace RecordShop.Tests.Unit.ControllerTests
 
             var result = await _albumController.PutAlbumAsync(testRequest, id);
 
-            var createdResult = result.Should().BeOfType<CreatedAtActionResult>().Subject;
-            createdResult.RouteValues!["id"].Should().Be(1);
+            var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
+            var value = okResult.Value as PutAlbumResponse;
+
+            value.Should().NotBeNull();
+            value.Should().BeEquivalentTo(testResponse);
         }
 
         [Test]
