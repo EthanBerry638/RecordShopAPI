@@ -146,7 +146,7 @@ namespace RecordShop.Tests.Integration
         }
 
         [Test]
-        public async Task PutArtistAsyncEndpoint_ReturnsCreatedAtAction_WhenArtistDTOIsValid()
+        public async Task PutArtistAsyncEndpoint_ReturnsOk_WhenArtistDTOIsValid()
         {
             var client = _factory.CreateClient();
             int id = 2;
@@ -156,9 +156,10 @@ namespace RecordShop.Tests.Integration
 
             var response = await client.PutAsJsonAsync($"api/Artist/{id}", requestDto);
 
-            response.StatusCode.Should().Be(System.Net.HttpStatusCode.Created);
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
 
             var content = await response.Content.ReadAsStringAsync();
+
             var updatedArtist = JsonSerializer.Deserialize<PutArtistResponse>(content, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
