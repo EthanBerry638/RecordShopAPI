@@ -39,6 +39,8 @@ namespace RecordShop.Tests.Unit.ControllerTests
 
             value.Should().NotBeNull();
             value.Should().BeEmpty();
+
+            _albumServiceMock.Verify(a => a.GetAllAlbumsAsync(), Times.Once());
         }
 
         [Test]
@@ -92,12 +94,6 @@ namespace RecordShop.Tests.Unit.ControllerTests
 
             value.Should().NotBeNull();
             value.Should().BeEquivalentTo(testList);
-        }
-
-        [Test]
-        public async Task GetAllAlbumsAsync_ShouldCorrectlyCallServiceOnce_WhenControllerMethodCalled()
-        {
-            await _albumController.GetAllAlbumsAsync();
 
             _albumServiceMock.Verify(a => a.GetAllAlbumsAsync(), Times.Once());
         }
@@ -118,6 +114,8 @@ namespace RecordShop.Tests.Unit.ControllerTests
 
             value.Should().NotBeNull();
             value.Should().BeEquivalentTo(testAlbum);
+
+            _albumServiceMock.Verify(a => a.GetAlbumByIdAsync(2), Times.Once());
         }
 
         [Test]
@@ -128,14 +126,8 @@ namespace RecordShop.Tests.Unit.ControllerTests
             var result = await _albumController.GetAlbumByIdAsync(100);
 
             var notFoundResult = result.Should().BeOfType<NotFoundResult>().Subject;
-        }
 
-        [Test]
-        public async Task GetAllAlbumByIdAsync_ShouldCorrectlyCallServiceOnce_WhenControllerMethodCalled()
-        {
-            await _albumController.GetAlbumByIdAsync(1);
-
-            _albumServiceMock.Verify(a => a.GetAlbumByIdAsync(1), Times.Once());
+            _albumServiceMock.Verify(a => a.GetAlbumByIdAsync(100), Times.Once());
         }
 
         [Test]
@@ -150,6 +142,8 @@ namespace RecordShop.Tests.Unit.ControllerTests
 
             var createdResult = result.Should().BeOfType<CreatedAtActionResult>().Subject;
             createdResult.RouteValues!["id"].Should().Be(1);
+
+            _albumServiceMock.Verify(a => a.PostAlbumAsync(testRequest), Times.Once());
         }
 
         [Test]
@@ -168,6 +162,8 @@ namespace RecordShop.Tests.Unit.ControllerTests
 
             value.Should().NotBeNull();
             value.Should().BeEquivalentTo(testResponse);
+
+            _albumServiceMock.Verify(a => a.PutAlbumAsync(testRequest, id), Times.Once());
         }
 
         [Test]
@@ -181,6 +177,8 @@ namespace RecordShop.Tests.Unit.ControllerTests
             var result = await _albumController.PutAlbumAsync(testRequest, id);
 
             var createdResult = result.Should().BeOfType<NotFoundResult>().Subject;
+
+            _albumServiceMock.Verify(a => a.PutAlbumAsync(testRequest, id), Times.Once());
         }
 
         [Test]
@@ -193,6 +191,8 @@ namespace RecordShop.Tests.Unit.ControllerTests
             var result = await _albumController.DeleteAlbumByIdAsync(id);
 
             var notFoundResult = result.Should().BeOfType<NotFoundResult>().Subject;
+
+            _albumServiceMock.Verify(a => a.DeleteAlbumByIdAsync(id), Times.Once());
         }
 
         [Test]
@@ -205,6 +205,8 @@ namespace RecordShop.Tests.Unit.ControllerTests
             var result = await _albumController.DeleteAlbumByIdAsync(id);
 
             var notFoundResult = result.Should().BeOfType<NoContentResult>().Subject;
+
+            _albumServiceMock.Verify(a => a.DeleteAlbumByIdAsync(id), Times.Once());
         }
     }
 }
