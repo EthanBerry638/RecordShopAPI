@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using RecordShop.Api.Models.DataModels;
 using RecordShop.Api.Models.DTOs;
 using RecordShop.Api.Services;
@@ -59,11 +60,7 @@ namespace RecordShop.Api.Controllers
                 return NotFound();
             }
 
-            return CreatedAtAction(
-                nameof(GetArtistByIdAsync),
-                new { Id = replacedArtist.Id },
-                replacedArtist
-            );
+            return Ok(replacedArtist);
         }
 
         [HttpDelete("{id:min(1)}")]
