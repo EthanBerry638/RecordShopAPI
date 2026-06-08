@@ -1,4 +1,4 @@
-# Record Shop Inventory API
+# Record Shop Inventory API 💿
 
 RESTful API for managing a record shop inventory.
 
