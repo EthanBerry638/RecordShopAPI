@@ -58,11 +58,7 @@ namespace RecordShop.Api.Controllers
                 return NotFound();
             }
 
-            return CreatedAtAction(
-                nameof(GetAlbumByIdAsync),
-                new { Id = putAlbum!.Id },
-                putAlbum
-            );
+            return Ok(putAlbum);
         }
 
         [HttpDelete("{id:min(1)}")]

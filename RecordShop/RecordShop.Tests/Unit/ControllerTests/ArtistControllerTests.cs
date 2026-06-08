@@ -131,7 +131,7 @@ namespace RecordShop.Tests.Unit.ControllerTests
         }
 
         [Test]
-        public async Task PutArtistAsync_ShouldReturnCreated_WhenServiceReturnsDTOWithUpdates()
+        public async Task PutArtistAsync_ShouldReturnOk_WhenServiceReturnsDTOWithUpdates()
         {
             int id = 1;
             var testRequest = new PutArtistRequest("Test", "Test", 4);
@@ -141,8 +141,11 @@ namespace RecordShop.Tests.Unit.ControllerTests
 
             var result = await _artistController.PutArtistAsync(testRequest, id);
 
-            var createdResult = result.Should().BeOfType<CreatedAtActionResult>().Subject;
-            createdResult.RouteValues!["id"].Should().Be(1);
+            var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
+            var value = okResult.Value as PutArtistResponse;
+
+            value.Should().NotBeNull();
+            value.Should().BeEquivalentTo(testResponse);
 
             _artistServiceMock.Verify(a => a.PutArtistAsync(testRequest, id), Times.Once());
         }
