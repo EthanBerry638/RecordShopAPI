@@ -172,10 +172,26 @@ namespace RecordShop.Tests.Unit.ServiceTests
         }
 
         [Test]
+        public async Task DeleteArtistByIdAsync_ShouldReturnFalse_WhenGetByIdReturnsNull()
+        {
+            int id = 1;
+
+            _artistRepositoryMock.Setup(a => a.GetArtistByIdAsync(id)).ReturnsAsync((Artist)null!);
+
+            var result = await _artistService.DeleteArtistByIdAsync(id);
+
+            result.Should().BeFalse();
+
+            _artistRepositoryMock.Verify(a => a.GetArtistByIdAsync(id), Times.Once());
+        }
+
+        [Test]
         public async Task DeleteArtistByIdAsync_ShouldReturnFalse_WhenArtistWasNotDeletedByRepo()
         {
             int id = 595830;
+            var expectedArtist = new Artist();
 
+            _artistRepositoryMock.Setup(a => a.GetArtistByIdAsync(id)).ReturnsAsync(expectedArtist);
             _artistRepositoryMock.Setup(a => a.DeleteArtistByIdAsync(id)).ReturnsAsync(false);
 
             var result = await _artistService.DeleteArtistByIdAsync(id);
@@ -183,13 +199,16 @@ namespace RecordShop.Tests.Unit.ServiceTests
             result.Should().BeFalse();
 
             _artistRepositoryMock.Verify(a => a.DeleteArtistByIdAsync(id), Times.Once());
+            _artistRepositoryMock.Verify(a => a.GetArtistByIdAsync(id), Times.Once());
         }
 
         [Test]
         public async Task DeleteArtistByIdAsync_ShouldReturnTrue_WhenArtistWasDeletedByRepo()
         {
             int id = 1;
+            var expectedArtist = new Artist();
 
+            _artistRepositoryMock.Setup(a => a.GetArtistByIdAsync(id)).ReturnsAsync(expectedArtist);
             _artistRepositoryMock.Setup(a => a.DeleteArtistByIdAsync(id)).ReturnsAsync(true);
 
             var result = await _artistService.DeleteArtistByIdAsync(id);
@@ -197,6 +216,7 @@ namespace RecordShop.Tests.Unit.ServiceTests
             result.Should().BeTrue();
 
             _artistRepositoryMock.Verify(a => a.DeleteArtistByIdAsync(id), Times.Once());
+            _artistRepositoryMock.Verify(a => a.GetArtistByIdAsync(id), Times.Once());
         }
     }
 }
